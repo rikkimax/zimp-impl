@@ -3,6 +3,7 @@ import dbm
 import os.path
 from zimp.engine.gamestate import GameState
 import sys
+from zimp.ui.clihelpers import *
 
 
 class CmdUiState:
@@ -14,12 +15,14 @@ class CmdUiState:
     Startup = 0
     Loaded = 1
 
+
 class CmdUi(cmd.Cmd):
 
     def startup(self):
         self.state = CmdUiState.Startup
         self.game_save = None
         self.game_save_name = None
+        self.prompt = "$ zimp >>> "
 
     def help_load(self):
         if self.state == CmdUiState.Startup:
@@ -28,6 +31,10 @@ class CmdUi(cmd.Cmd):
             print("")
 
     def do_load(self, arg):
+        """
+        Loads a new game from save file.
+        """
+
         if self.state == CmdUiState.Startup:
             if os.path.isfile(arg):
                 try:
@@ -46,9 +53,17 @@ class CmdUi(cmd.Cmd):
             print("")
 
     def do_new(self, arg):
-        self.game_save = GameState()
-        self.state = CmdUiState.Loaded
-        self.game_save_name = arg
+        """
+        Creates a new game.
+        Optional argument being the save file name
+        """
+
+        if self.state == CmdUiState.Startup:
+            self.game_save = GameState()
+            self.state = CmdUiState.Loaded
+            self.game_save_name = arg
+
+            print_game_rules()
 
     def help_save(self):
         if self.state > CmdUiState.Loaded:
@@ -57,21 +72,27 @@ class CmdUi(cmd.Cmd):
             print("")
 
     def do_save(self, arg):
-        name = ""
+        """
+        Saves the current game state to file.
+        Optionally takes an argument (save file)
+        """
 
-        if arg == "":
-            sys.stdout.write("Save file name: ")
-            name = sys.stdin.readline()
-        elif not self.game_save_name == "":
-            name = self.game_save_name
+        if self.state > CmdUiState.Loaded:
+            name = ""
 
-        if not name == "":
-            try:
-                self.game_save.serialize(self.game_save_name)
-            except:
-                print("Could not save game")
-        else:
-            print("Must specify a name")
+            if arg == "":
+                sys.stdout.write("Save file name: ")
+                name = sys.stdin.readline()
+            elif not self.game_save_name == "":
+                name = self.game_save_name
+
+            if not name == "":
+                try:
+                    self.game_save.serialize(self.game_save_name)
+                except:
+                    print("Could not save game")
+            else:
+                print("Must specify a name")
 
     def do_quit(self, arg):
         """
@@ -79,6 +100,19 @@ class CmdUi(cmd.Cmd):
         """
         return True
 
+    def do_clear(self, arg):
+        """
+        Clears the screen
+        """
+        clear()
+
+def print_game_rules():
+    print("==----------==")
+    print("| " + bold("Game rules") + " |")
+    print("==----------==")
+    print()
+    print('The aim of the game is to not ' + color(Colors.Red, bold('die')) +\
+          '. Oh and you can only do this by burying the totem in the grave yard.')
 
 if __name__ == "__main__":
     ui = CmdUi()
