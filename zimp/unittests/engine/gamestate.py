@@ -1,4 +1,4 @@
-from unittest import *
+import unittest
 from zimp.engine import gamestate, item
 import os.path
 import shutil
@@ -8,7 +8,7 @@ import sys
 
 TEST_TMP_DIR = "serialized_data/"
 
-class GameStateTestSerialize(TestCase):
+class GameStateTestSerialize(unittest.TestCase):
     """
     Tests the serialization and deserialization capabilities of the GameState.
     """
@@ -44,7 +44,7 @@ class GameStateTestSerialize(TestCase):
         self.game_state.has_totem = True
         self.game_state.serialize(TEST_TMP_DIR + sys._getframe().f_code.co_name)
         self.game_state = None
-        self.assertIsNone(self, "game_state")
+        self.assertEqual(self.game_state, None)
 
         self.game_state = gamestate.GameState.deserialize(TEST_TMP_DIR + sys._getframe().f_code.co_name)
         self.assertTrue(self.game_state.has_totem)
@@ -57,12 +57,11 @@ class GameStateTestSerialize(TestCase):
         self.assertNotEqual(self.game_state.item1.name, "My cool item")
         self.game_state.item1.name = "My cool item"
 
-
         self.game_state.serialize(TEST_TMP_DIR + sys._getframe().f_code.co_name)
         self.game_state = None
-        self.assertIsNone(self, "game_state")
+        self.assertEqual(self.game_state, None)
 
         self.game_state = gamestate.GameState.deserialize(TEST_TMP_DIR + sys._getframe().f_code.co_name)
 
-        self.assertNotEqual(self.game_state.item1)
+        self.assertNotEqual(self.game_state.item1, None)
         self.assertEqual(self.game_state.item1.name, "My cool item")
