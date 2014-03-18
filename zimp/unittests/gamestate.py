@@ -24,9 +24,9 @@ class GameStateTestSerialize(TestCase):
             shutil.rmtree(TEST_TMP_DIR)
         os.makedirs(TEST_TMP_DIR)
 
-    def tearDown(self):pass
-        #if os.path.exists(TEST_TMP_DIR):
-        #    shutil.rmtree(TEST_TMP_DIR)
+    def tearDown(self):
+        if os.path.exists(TEST_TMP_DIR):
+            shutil.rmtree(TEST_TMP_DIR)
 
     def test_basic(self):
         """
