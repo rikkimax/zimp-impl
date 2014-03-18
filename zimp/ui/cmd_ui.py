@@ -1,9 +1,11 @@
 import cmd
 import dbm
 import os.path
-from zimp.engine.gamestate import GameState
+from zimp.engine import gamestate
+from zimp.ui.cligame import CliGame
 import sys
 from zimp.ui.clihelpers import *
+import os
 
 
 class CmdUiState:
@@ -36,15 +38,16 @@ class CmdUi(cmd.Cmd):
         """
 
         if self.state == CmdUiState.Startup:
-            if os.path.isfile(arg):
-                try:
-                    self.game_save = GameState.deserialize(arg)
-                    self.state = CmdUiState.Loaded
-                    self.game_save_name = arg
-                except dbm.error:
-                    print("Could not load file. Not a valid save game")
-            else:
-                print("Game save does not exist")
+            try:
+                more_info = gamestate.ExtraGameInfo()
+
+                self.game_save = CliGame.deserialize(arg, more_info)
+                self.state = CmdUiState.Loaded
+                self.game_save_name = arg
+
+                print("Last saved: " + more_info.last_edited)
+            except:
+                print("Could not load file. Not a valid save game")
 
     def help_new(self):
         if self.state == CmdUiState.Startup:
@@ -59,14 +62,42 @@ class CmdUi(cmd.Cmd):
         """
 
         if self.state == CmdUiState.Startup:
-            self.game_save = GameState()
+            self.game_save = CliGame()
             self.state = CmdUiState.Loaded
             self.game_save_name = arg
 
             print_game_rules()
 
+    def help_delete(self):
+        if self.state >= CmdUiState.Loaded:
+            print("Deletes a saved game")
+        else:
+            print("")
+
+    def do_delete(self, arg):
+        """
+        Deletes a saved game.
+        Takes an optional argument of the game save.
+        If is the current game, resets the program.
+        """
+
+        if self.state >= CmdUiState.Loaded:
+            if arg == "":
+                name = self.game_save_name
+            else:
+                name = arg
+
+            if not name == "":
+                os.remove(name + '.dat')
+                os.remove(name + '.bak')
+                os.remove(name + '.dir')
+
+            if name == self.game_save_name:
+                print("Resetting game state")
+                self.state = CmdUiState.Startup
+
     def help_save(self):
-        if self.state > CmdUiState.Loaded:
+        if self.state >= CmdUiState.Loaded:
             print("Saves the current game state. Optional argument of save file name")
         else:
             print("")
@@ -77,18 +108,21 @@ class CmdUi(cmd.Cmd):
         Optionally takes an argument (save file)
         """
 
-        if self.state > CmdUiState.Loaded:
+        if self.state >= CmdUiState.Loaded:
             name = ""
-
-            if arg == "":
-                sys.stdout.write("Save file name: ")
-                name = sys.stdin.readline()
-            elif not self.game_save_name == "":
+            if not self.game_save_name == "":
                 name = self.game_save_name
+            elif not arg == "":
+                name = arg
+            else:
+                sys.stdout.write("Please enter the save file name: ")
+                sys.stdout.flush()
+                name = sys.stdin.readline()
 
             if not name == "":
                 try:
-                    self.game_save.serialize(self.game_save_name)
+                    self.game_save.serialize(name)
+                    self.game_save_name = name
                 except:
                     print("Could not save game")
             else:
