@@ -14,6 +14,12 @@ class GameState:
     health = 0
     has_totem = False
 
+    def setup_new_game(self):
+        """
+        Configures self for a new fresh game.
+        """
+        pass
+
     def spawn_zombies(self, count, direction = Direction.Unknown):
         """
         Spawns {count} zombies in {direction}.
@@ -86,12 +92,12 @@ class GameState:
 
         file = shelve.open(file, writeback=True)
         ret = file["game"]
-        extra_info = ExtraGameInfo(file["lastEdited"])
+        extra_info.last_edited = file["lastEdited"]
         file.close()
 
         return ret
 
 class ExtraGameInfo:
 
-    def __init__(self, last_edited):
-        self.last_edited = last_edited
+    def __init__(self):
+        self.last_edited = ""
