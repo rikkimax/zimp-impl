@@ -73,15 +73,23 @@ class GameState:
         """
         Saves the data structure into the given file.
         """
-        pass
+        file = shelve.open(file, writeback=True)
+        file["game"] = self
+        file["lastEdited"] = time.strftime("%c")
+        file.close()
 
     @classmethod
     def deserialize(cls, file, extra_info = None):
         """
         Loads a data structure from the given file.
         """
-        pass
 
+        file = shelve.open(file, writeback=True)
+        ret = file["game"]
+        extra_info = ExtraGameInfo(file["lastEdited"])
+        file.close()
+
+        return ret
 
 class ExtraGameInfo:
 
