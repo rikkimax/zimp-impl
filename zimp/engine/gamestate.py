@@ -1,7 +1,8 @@
 from zimp.engine.defs import Direction
 import shelve
 import time
-
+import random
+from zimp.engine import devcard
 
 class GameState:
 
@@ -18,7 +19,7 @@ class GameState:
         """
         Configures self for a new fresh game.
         """
-        pass
+        self.health = 6
 
     def spawn_zombies(self, count, direction = Direction.Unknown):
         """
@@ -31,7 +32,15 @@ class GameState:
         """
         Draws a new dev card.
         """
-        pass
+        if len(self.dev_cards_used) == 7:
+            self.dev_cards_used.clear()
+            self.dev_cards_iteration += 1
+
+        cards_left = [i for i in range(0, 7) if not i in self.dev_cards_used]
+        card = cards_left[random.randint(0, len(cards_left))]
+        self.dev_cards_used += card
+
+        self.on_dev_card(devcard.Devcard(card))
 
     def on_start(self):
         """
