@@ -1,8 +1,8 @@
-from zimp.engine.defs import Direction
+from zimp.engine.defs import Direction, Tiles
 import shelve
 import time
 import random
-from zimp.engine import devcard
+from zimp.engine import devcard, tile, tilestate
 
 class GameState:
 
@@ -20,6 +20,8 @@ class GameState:
         Configures self for a new fresh game.
         """
         self.health = 6
+        self.current_tile = tilestate.TileState(tile.Tile(Tiles.Foyer))
+        self.foyer_tile = self.current_tile
 
     def spawn_zombies(self, count, direction = Direction.Unknown):
         """
