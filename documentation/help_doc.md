@@ -33,7 +33,7 @@ Commands
 * help<br/>
 	Lists all commands available in all states
 	
-* help <command name><br/>
+* help \<command name\><br/>
 	Prints out the given help documentation for a command if you can currently use it
 	
 	**Arguments:**<br/>

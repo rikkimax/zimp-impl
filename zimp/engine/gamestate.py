@@ -108,6 +108,7 @@ class GameState:
 
         return ret
 
+
 class ExtraGameInfo:
 
     def __init__(self):
