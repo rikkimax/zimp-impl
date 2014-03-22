@@ -4,10 +4,9 @@ import os.path
 import builtins
 from zimp.engine import gamestate, defs
 from zimp.ui.cligame import CliGame
-import sys
 from zimp.ui.clihelpers import *
 import os
-
+import traceback
 
 class CmdUiState:
     """
@@ -43,9 +42,12 @@ class CmdUi(cmd.Cmd):
             try:
                 more_info = gamestate.ExtraGameInfo()
 
-                self.game_save = CliGame.deserialize(arg, more_info)
-                self.state = CmdUiState.Loaded
-                self.game_save_name = arg
+                try:
+                    self.game_save = CliGame.deserialize(arg, more_info)
+                    self.state = CmdUiState.Loaded
+                    self.game_save_name = arg
+                except gamestate.DeserializeException:
+                    print("That was a bad choice. Could not load file.")
 
                 print("Last saved: " + more_info.last_edited)
             except:
@@ -126,8 +128,8 @@ class CmdUi(cmd.Cmd):
                 try:
                     self.game_save.serialize(name)
                     self.game_save_name = name
-                except:
-                    print("Could not save game")
+                except gamestate.SerializeException:
+                    print("Could not save game. I'm so sorry.")
             else:
                 print("Must specify a name")
 
@@ -167,4 +169,12 @@ def print_game_rules():
 if __name__ == "__main__":
     ui = CmdUi()
     ui.startup()
-    ui.cmdloop()
+
+    try:
+        ui.cmdloop()
+    except Exception as err:
+        print("I'm so sorry something has REALLY REALLY gone wrong. Please create a github issue at:")
+        print("\thttps://github.com/rikkimax/zimp-impl/issues")
+        print("And please tell them this information:")
+        print("\t" + str(err.args))
+        print("\t" + str(traceback.format_tb(sys.exc_info()[2])))
