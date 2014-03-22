@@ -60,7 +60,7 @@ class GameState:
         self.current_tile = tilestate.TileState(tile.Tile(Tiles.Foyer))
         self.foyer_tile = self.current_tile
 
-    def spawn_zombies(self, count, direction = Direction.Unknown):
+    def spawn_zombies(self, count, direction=Direction.Unknown):
         """
         Spawns {count} zombies in {direction}.
         Most likely this is used for the ui.
