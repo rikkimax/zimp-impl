@@ -166,7 +166,7 @@ def print_game_rules():
     print("| " + bold("Game rules") + " |")
     print("==----------==")
     print()
-    print('The aim of the game is to not ' + color(Colors.Red, bold('die')) +\
+    print('The aim of the game is to not ' + color(Colors.Red, bold('die')) +
           '. Oh and you can only do this by burying the totem in the grave yard.')
 
 if __name__ == "__main__":
