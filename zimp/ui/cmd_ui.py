@@ -9,6 +9,7 @@ from zimp.ui.clihelpers import *
 import os
 import traceback
 
+
 class CmdUiState:
     """
     The state that the cmd UI is currently in.
@@ -158,6 +159,7 @@ class CmdUi(cmd.Cmd):
         Clears the screen
         """
         clear()
+
 
 def print_game_rules():
     print("==----------==")

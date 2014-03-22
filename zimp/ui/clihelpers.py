@@ -15,8 +15,10 @@ class Colors:
     Cyan = 36
     White = 37
 
+
 def bold(msg):
     return u'\033[1m%s\033[0m' % msg
+
 
 def color(this_color, string):
     return str("\033[" + str(this_color) + "m" + string + "\033[0m")

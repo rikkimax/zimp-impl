@@ -19,6 +19,7 @@ class SerializeException(Exception):
     def __str__(self):
         return "Could not serialize data to file system."
 
+
 class DeserializeException(Exception):
     """
     I'm not really concerned with _what_ happened. Just that something did go wrong.
@@ -27,6 +28,7 @@ class DeserializeException(Exception):
 
     def __str__(self):
         return "Could not deserialize data from file system."
+
 
 class GameState:
     """
