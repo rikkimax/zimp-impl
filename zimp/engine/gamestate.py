@@ -3,6 +3,7 @@ import shelve
 import time
 import random
 from zimp.engine import devcard, tile, tilestate
+import os
 
 
 class GameState:
@@ -102,7 +103,7 @@ class GameState:
         """
         Saves the data structure into the given file.
         """
-        file = shelve.open(file, writeback=True)
+        file = shelve.open(os.path.abspath(file), writeback=True)
         file["game"] = self
         file["lastEdited"] = time.strftime("%c")
         file.close()
@@ -113,7 +114,7 @@ class GameState:
         Loads a data structure from the given file.
         """
 
-        file = shelve.open(file, writeback=True)
+        file = shelve.open(os.path.abspath(file), writeback=True)
         ret = file["game"]
         extra_info.last_edited = file["lastEdited"]
         file.close()
