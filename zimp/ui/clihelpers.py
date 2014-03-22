@@ -1,4 +1,9 @@
+"""
+Most of this code was copied from online source.
+http://www.darkcoding.net/software/pretty-command-line-console-output-on-unix-in-python-and-go-lang/
+"""
 import sys
+
 
 class Colors:
     Black = 30
