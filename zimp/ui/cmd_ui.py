@@ -1,8 +1,9 @@
+"""
+Made by Richard Andrew Cattermole
+"""
+
 import cmd
-import dbm
-import os.path
-import builtins
-from zimp.engine import gamestate, defs
+from zimp.engine import gamestate
 from zimp.ui.cligame import CliGame
 from zimp.ui.clihelpers import *
 import os

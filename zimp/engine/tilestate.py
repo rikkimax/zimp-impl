@@ -47,6 +47,6 @@ class TileState:
         return
 
 
-place_tile = TileState(current_area[1], 1, current_area[2],
-                       current_area[3], current_area[4],
-                       current_area[5], False)
+#place_tile = TileState(current_area[1], 1, current_area[2],
+#                       current_area[3], current_area[4],
+#                       current_area[5], False)

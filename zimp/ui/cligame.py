@@ -1,3 +1,7 @@
+"""
+Made by Richard Andrew Cattermole
+"""
+
 from zimp.engine.gamestate import GameState
 from zimp.engine import defs
 import sys

@@ -1,3 +1,7 @@
+"""
+Made by Richard Andrew Cattermole
+"""
+
 from zimp.engine.defs import Direction, Tiles
 import shelve
 import time
