@@ -4,7 +4,19 @@ import time
 import random
 from zimp.engine import devcard, tile, tilestate
 
+
 class GameState:
+    """
+        Holds the entire game state
+        Also includes events to call for UI.
+
+        >>> GameState().health == 0
+        True
+        >>> state = GameState()
+        >>> state.setup_new_game()
+        >>> state.health == 6
+        True
+    """
 
     current_tile = None
     foyer_tile = None
@@ -110,6 +122,9 @@ class GameState:
 
 
 class ExtraGameInfo:
+    """
+    A clever way to return data with deserialize method on GameState without tuples!
+    """
 
     def __init__(self):
         self.last_edited = ""
