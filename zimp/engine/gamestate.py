@@ -6,6 +6,24 @@ from zimp.engine import devcard, tile, tilestate
 import os
 
 
+class SerializeException(Exception):
+    """
+    I'm not really concerned with _what_ happened. Just that something did go wrong.
+    So now yell at the user.
+    """
+
+    def __str__(self):
+        return "Could not serialize data to file system."
+
+class DeserializeException(Exception):
+    """
+    I'm not really concerned with _what_ happened. Just that something did go wrong.
+    So now yell at the user.
+    """
+
+    def __str__(self):
+        return "Could not deserialize data from file system."
+
 class GameState:
     """
         Holds the entire game state
@@ -103,10 +121,14 @@ class GameState:
         """
         Saves the data structure into the given file.
         """
-        file = shelve.open(os.path.abspath(file), writeback=True)
-        file["game"] = self
-        file["lastEdited"] = time.strftime("%c")
-        file.close()
+
+        try:
+            file = shelve.open(os.path.abspath(file), writeback=True)
+            file["game"] = self
+            file["lastEdited"] = time.strftime("%c")
+            file.close()
+        except Exception as err:
+            raise SerializeException()
 
     @classmethod
     def deserialize(cls, file, extra_info = None):
@@ -114,10 +136,14 @@ class GameState:
         Loads a data structure from the given file.
         """
 
-        file = shelve.open(os.path.abspath(file), writeback=True)
-        ret = file["game"]
-        extra_info.last_edited = file["lastEdited"]
-        file.close()
+        try:
+            file = shelve.open(os.path.abspath(file), writeback=True)
+            ret = file["game"]
+            if not extra_info is None:
+                extra_info.last_edited = file["lastEdited"]
+            file.close()
+        except Exception as err:
+            raise DeserializeException()
 
         return ret
 
