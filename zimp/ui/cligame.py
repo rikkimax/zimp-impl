@@ -196,7 +196,7 @@ class CliGame(GameState):
                                if hasattr(tile_state, d) and getattr(tile_state, d)])
         door_available_count = len([d for d in
                                     ["top", "bottom", "left", "right"]
-                                    if hasattr(tile, "door_" + d) and getattr(tile_state, d)])
+                                    if hasattr(tile, "door_" + d) and getattr(tile_state, "door_" + d)])
 
         if door_used_count == door_available_count:
             # zombie door
