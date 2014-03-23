@@ -75,18 +75,21 @@ class CliGame(GameState):
 
         hit_door = False
 
-        if tile.door_top:
-            sys.stdout.write(" top")
-            hit_door = True
-        if tile.door_bottom:
-            sys.stdout.write(" bottom")
-            hit_door = True
-        if tile.door_left:
-            sys.stdout.write(" left")
-            hit_door = True
-        if tile.door_right:
-            sys.stdout.write(" right")
-            hit_door = True
+        if hasattr(tile, "door_top"):
+            if tile.door_top:
+                sys.stdout.write(" top")
+                hit_door = True
+            if tile.door_bottom:
+                sys.stdout.write(" bottom")
+                hit_door = True
+            if tile.door_left:
+                sys.stdout.write(" left")
+                hit_door = True
+            if tile.door_right:
+                sys.stdout.write(" right")
+                hit_door = True
+        else:
+            print(" Loki you had one job to do.. and wahhh")
 
         if hit_door:
             sys.stdout.write(".\n")
@@ -189,14 +192,11 @@ class CliGame(GameState):
         #
 
         door_used_count = len([d for d in
-                               [tile_state.up, tile_state.down, tile_state.left,
-                                tile_state.right]
-                               if not None])
-
+                               ["up", "down", "left", "right"]
+                               if hasattr(tile_state, d) and getattr(tile_state, d)])
         door_available_count = len([d for d in
-                                    [tile.door_top, tile.door_bottom,
-                                     tile.door_left, tile.door_right]
-                                    if True])
+                                    ["top", "bottom", "left", "right"]
+                                    if hasattr(tile, "door_" + d) and getattr(tile_state, d)])
 
         if door_used_count == door_available_count:
             # zombie door
@@ -208,18 +208,21 @@ class CliGame(GameState):
 
             hit_door = False
 
-            if not tile.door_top:
-                sys.stdout.write(" top")
-                hit_door = True
-            if not tile.door_bottom:
-                sys.stdout.write(" bottom")
-                hit_door = True
-            if not tile.door_left:
-                sys.stdout.write(" left")
-                hit_door = True
-            if not tile.door_right:
-                sys.stdout.write(" right")
-                hit_door = True
+            if hasattr(tile, "door_top"):
+                if not tile.door_top:
+                    sys.stdout.write(" top")
+                    hit_door = True
+                if not tile.door_bottom:
+                    sys.stdout.write(" bottom")
+                    hit_door = True
+                if not tile.door_left:
+                    sys.stdout.write(" left")
+                    hit_door = True
+                if not tile.door_right:
+                    sys.stdout.write(" right")
+                    hit_door = True
+            else:
+                print(" Loki you had one job to do.. and wahhh")
 
             if hit_door:
                 sys.stdout.write(".\n")
