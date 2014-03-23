@@ -16,7 +16,30 @@ def rotational_output(dir1, dir2):
     >>> rotational_output(defs.Direction.LEFT, defs.Direction.DOWN)\
         == defs.Direction.RIGHT
     True
+    >>> rotational_output(100, 200)
+    Traceback (most recent call last):
+    ...
+    Exception: Wrong input types. \
+Should only be Direction constants bitwise or'd.
+    >>> rotational_output(0.5, 1)
+    Traceback (most recent call last):
+    ...
+    Exception: Wrong input types. \
+Should only be Direction constants bitwise or'd.
     """
+
+    if not isinstance(dir1, int) or not isinstance(dir2, int):
+        raise Exception("Wrong input types. " +
+                        "Should only be Direction constants bitwise or'd.")
+
+    max_val = defs.Direction.Unknown |\
+        defs.Direction.DOWN |\
+        defs.Direction.LEFT |\
+        defs.Direction.RIGHT |\
+        defs.Direction.UP
+    if dir1 > max_val or dir2 > max_val:
+        raise Exception("Wrong input types. " +
+                        "Should only be Direction constants bitwise or'd.")
 
     rotation = 0
 
