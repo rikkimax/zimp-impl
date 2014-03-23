@@ -12,7 +12,8 @@ import os
 
 class SerializeException(Exception):
     """
-    I'm not really concerned with _what_ happened. Just that something did go wrong.
+    I'm not really concerned with _what_ happened.
+    Just that something did go wrong.
     So now yell at the user.
     """
 
@@ -22,7 +23,8 @@ class SerializeException(Exception):
 
 class DeserializeException(Exception):
     """
-    I'm not really concerned with _what_ happened. Just that something did go wrong.
+    I'm not really concerned with _what_ happened.
+    Just that something did go wrong.
     So now yell at the user.
     """
 
@@ -137,7 +139,7 @@ class GameState:
             raise SerializeException()
 
     @classmethod
-    def deserialize(cls, file, extra_info = None):
+    def deserialize(cls, file, extra_info=None):
         """
         Loads a data structure from the given file.
         """
@@ -156,7 +158,8 @@ class GameState:
 
 class ExtraGameInfo:
     """
-    A clever way to return data with deserialize method on GameState without tuples!
+    A clever way to return data with deserialize method on GameState
+    without tuples!
     """
 
     def __init__(self):

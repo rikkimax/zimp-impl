@@ -216,10 +216,12 @@ class CliGame(GameState):
 
         door_used_count = len([d for d in
                                ["up", "down", "left", "right"]
-                               if hasattr(tile_state, d) and getattr(tile_state, d)])
+                               if hasattr(tile_state, d) and
+                               getattr(tile_state, d)])
         door_available_count = len([d for d in
                                     ["top", "bottom", "left", "right"]
-                                    if hasattr(tile, "door_" + d) and getattr(tile_state, "door_" + d)])
+                                    if hasattr(tile, "door_" + d) and
+                                    getattr(tile_state, "door_" + d)])
 
         if door_used_count == door_available_count:
             # zombie door
@@ -251,7 +253,8 @@ class CliGame(GameState):
                 sys.stdout.write(".\n")
             else:
                 sys.stdout.write("none, ERROR.\n")
-                raise Exception("WHAT IS GOING ON HERE NO ZOMBIE DOOR POSSIBLE")
+                raise Exception(
+                    "WHAT IS GOING ON HERE NO ZOMBIE DOOR POSSIBLE")
 
             direction = defs.Direction.Unknown
 

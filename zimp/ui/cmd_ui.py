@@ -105,7 +105,8 @@ class CmdUi(cmd.Cmd):
 
     def help_save(self):
         if self.state == CmdUiState.Loaded:
-            print("Saves the current game state. Optional argument of save file name")
+            print("Saves the current game state." +
+                  "Optional argument of save file name")
         else:
             print("")
 
@@ -171,7 +172,7 @@ def print_game_rules():
     print("==----------==")
     print()
     print('The aim of the game is to not ' + color(Colors.Red, bold('die')) +
-          '. Oh and you can only do this by burying the totem in the grave yard.')
+          '. You can only do this by burying the totem in the grave yard.')
 
 if __name__ == "__main__":
     ui = CmdUi()
@@ -180,7 +181,8 @@ if __name__ == "__main__":
     try:
         ui.cmdloop()
     except Exception as err:
-        print("I'm so sorry something has REALLY REALLY gone wrong. Please create a github issue at:")
+        print("I'm so sorry something has REALLY REALLY gone wrong." +
+              "Please create a github issue at:")
         print("\thttps://github.com/rikkimax/zimp-impl/issues")
         print("And please tell them this information:")
         print("\t" + str(err.args))
