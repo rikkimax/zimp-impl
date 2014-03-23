@@ -136,17 +136,21 @@ class CmdUi(cmd.Cmd):
                 print("Must specify a name")
 
     def help_turn(self):
-        if self.state == CmdUiState.Turn:
+        if self.state == CmdUiState.Loaded:
             print("Play a turn of the game")
 
     def do_turn(self, arg):
-        if self.state == CmdUiState.Turn:
+        if self.state == CmdUiState.Loaded:
+            self.state = CmdUiState.Turn
+
             tile_state = self.game_save.current_tile
             tile = tile_state.tile
 
             self.game_save.on_new_turn()
-
+            # do something
             self.game_save.on_end_turn()
+
+            self.state = CmdUiState.Loaded
 
     def do_quit(self, arg):
         """
