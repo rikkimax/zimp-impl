@@ -5,6 +5,8 @@ Coded by Claire.
 import csv
 # -- Richard edit --
 from zimp.engine import item
+import sys
+import os
 # -- Richard edit --
 
 
@@ -79,7 +81,9 @@ class DevCard:
 
         i = 0
         # -- Richard edit --
-        with open("../../data/devcard.csv", newline='\n') as csvfile:
+        file = "../" * len(sys.path[0].split("zimp" + os.path.sep)[1].split(os.path.sep))
+        file += "../data/devcard.csv"
+        with open(file, newline='\n') as csvfile:
             # -- Richard edit --
             for line in csv.reader(csvfile, delimiter=',', quotechar='|'):
                 if i == id:
@@ -124,7 +128,7 @@ class DevCard:
         When an action is to occur for this dev card, do this.
         This allows for custom handling of the events of any card.
         """
-        return ("This is game_state")
+        return ("This is on_time_action")
 
 
 if __name__ == '__main__':

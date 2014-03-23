@@ -16,12 +16,19 @@
 
 
 import random
+# -- Richard edit --
+import sys
+import os
+# -- Richard edit --
 
 current_area = []
 area_data = []
 area = []
+
 # -- Richard edit --
-for line in open("../../data/zimp_tiles.txt"):
+file = "../" * len(sys.path[0].split("zimp" + os.path.sep)[1].split(os.path.sep))
+file += "../data/zimp_tiles.txt"
+for line in open(file):
 # -- Richard edit --
     line = line.split(",")
     for num in range(0, 16):
