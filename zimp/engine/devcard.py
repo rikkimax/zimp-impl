@@ -6,7 +6,6 @@ import csv
 # -- Richard edit --
 from zimp.engine import item
 import sys
-import os
 # -- Richard edit --
 
 
@@ -81,7 +80,10 @@ class DevCard:
 
         i = 0
         # -- Richard edit --
-        file = "../" * len(sys.path[0].split("zimp" + os.path.sep)[1].split(os.path.sep))
+        sep = "\\"
+        if sys.path[0].__contains__("/"):
+            sep = "/"
+        file = "../" * len(sys.path[0].split("zimp" + sep)[1].split(sep))
         file += "../data/devcard.csv"
         with open(file, newline='\n') as csvfile:
             # -- Richard edit --

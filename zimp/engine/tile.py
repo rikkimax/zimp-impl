@@ -18,7 +18,6 @@
 import random
 # -- Richard edit --
 import sys
-import os
 # -- Richard edit --
 
 current_area = []
@@ -26,7 +25,10 @@ area_data = []
 area = []
 
 # -- Richard edit --
-file = "../" * len(sys.path[0].split("zimp" + os.path.sep)[1].split(os.path.sep))
+sep = "\\"
+if sys.path[0].__contains__("/"):
+    sep = "/"
+file = "../" * len(sys.path[0].split("zimp" + sep)[1].split(sep))
 file += "../data/zimp_tiles.txt"
 for line in open(file):
 # -- Richard edit --
