@@ -128,6 +128,30 @@ class DevCard:
         When an action is to occur for this dev card, do this.
         This allows for custom handling of the events of any card.
         """
+        # go to game_state and get id and iteration
+        # for id and iteration
+        #   print text
+        #   if is_attack
+        #       attack or run
+        #       A LOT OF THIS NEEDS TO BE IN CliGame
+        #       if attack
+        #           get item.attack_value
+        #           health_lost = item.attack_value + health_adjust
+        #           health = health + health_lost
+        #       if run
+        #           health = health -1
+        #       if run_with_oil
+        #           pass
+        #   if is_item
+        #       print("Spend time looking for item?")
+        #           if y
+        #               get new_dev_card to get item
+        #               increment dev_cards_used
+        #           if n
+        #               pass
+        #   elif
+        #       health = health_adjust
+        # increment dev_cards_used
         return ("This is on_time_action")
 
 
