@@ -7,22 +7,25 @@ import sys
 
 
 class Colors:
-    Black = 30
-    Red = 31
-    Green = 32
-    Yellow = 33
-    Blue = 34
-    Magenta = 35
-    Cyan = 36
-    White = 37
+    Black = 0
+    Red = 1
+    Green = 2
+    Yellow = 3
+    Blue = 4
+    Magenta = 5
+    Cyan = 6
+    White = 7
 
 
 def bold(msg):
     return u'\033[1m%s\033[0m' % msg
 
 
-def color(this_color, string):
-    return str("\033[" + str(this_color) + "m" + string + "\033[0m")
+def color(this_color, string, background_color=None):
+    if not background_color is None:
+        return str("\033[7;" + str(this_color + 30) + ";" + str(background_color + 40) + "m" + string + "\033[0m")
+    else:
+        return str("\033[" + str(this_color + 30) + "m" + string + "\033[0m")
 
 
 def clear():
