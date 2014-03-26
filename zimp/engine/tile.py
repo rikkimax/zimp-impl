@@ -43,6 +43,83 @@ for line in open(file):
 
 
 class Tile:
+    # -- Richard edit --
+    """
+    taken from
+    https://github.com/lokikristianson/zimp-impl/blob/master/tile_doctest
+    line 20-88
+    >>> tile = sys.modules[__name__]
+    >>> tile.Tile(0).name
+    'Foyer'
+    >>> tile.Tile(1).name
+    'Patio'
+    >>> tile.Tile(2).name
+    'Evil Temple'
+    >>> tile.Tile(3).name
+    'Storage Room'
+    >>> tile.Tile(4).name
+    'Kitchen'
+    >>> tile.Tile(5).name
+    'Dining Room'
+    >>> tile.Tile(6).name
+    'Family Room'
+    >>> tile.Tile(7).name
+    'Bedroom'
+    >>> tile.Tile(8).name
+    'Bathroom'
+    >>> tile.Tile(9).name
+    'Garden'
+    >>> tile.Tile(10).name
+    'Graveyard'
+    >>> tile.Tile(11).name
+    'Garage'
+    >>> tile.Tile(12).name
+    'Sitting Area'
+    >>> tile.Tile(13).name
+    'Yard1'
+    >>> tile.Tile(14).name
+    'Yard2'
+    >>> tile.Tile(15).name
+    'Yard3'
+    >>> tile.area[0][2]
+    True
+    >>> tile.area[9][2]
+    False
+    >>> tile.area[10][2]
+    False
+    >>> tile.area[0][3]
+    False
+    >>> tile.area[9][3]
+    True
+    >>> tile.area[10][3]
+    True
+    >>> tile.area[0][4]
+    False
+    >>> tile.area[9][4]
+    True
+    >>> tile.area[10][4]
+    True
+    >>> tile.area[0][5]
+    False
+    >>> tile.area[9][5]
+    True
+    >>> tile.area[10][5]
+    True
+    >>> tile.area[0][6]
+    False
+    >>> tile.area[9][6]
+    True
+    >>> tile.area[10][6]
+    False
+    >>> tile.area[0][7]
+    True
+    >>> tile.area[9][7]
+    True
+    >>> tile.area[10][7]
+    False
+    """
+    # -- Richard edit --
+
     def __init__(self, id):
         self.type = id
         self.name = area[id][1]
