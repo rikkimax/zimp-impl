@@ -23,7 +23,8 @@ def bold(msg):
 
 def color(this_color, string, background_color=None):
     if not background_color is None:
-        return str("\033[7;" + str(this_color + 30) + ";" + str(background_color + 40) + "m" + string + "\033[0m")
+        return str("\033[7;" + str(this_color + 30) + ";" +
+                   str(background_color + 40) + "m" + string + "\033[0m")
     else:
         return str("\033[" + str(this_color + 30) + "m" + string + "\033[0m")
 

@@ -6,6 +6,7 @@ import cmd
 from zimp.engine import gamestate
 from zimp.ui.cligame import CliGame
 from zimp.ui.clihelpers import *
+from zimp.ui.ascii_art import *
 import os
 import traceback
 
@@ -171,8 +172,10 @@ def print_game_rules():
     print("| " + bold("Game rules") + " |")
     print("==----------==")
     print()
+    print_welcome()
     print('The aim of the game is to not ' + color(Colors.Red, bold('die')) +
           '. You can only do this by burying the totem in the grave yard.')
+    print_bat()
 
 if __name__ == "__main__":
     ui = CmdUi()
@@ -181,6 +184,7 @@ if __name__ == "__main__":
     try:
         ui.cmdloop()
     except Exception as err:
+        print(fancy_text('ERROR', Colors.Yellow))
         print("I'm so sorry something has REALLY REALLY gone wrong." +
               "Please create a github issue at:")
         print("\thttps://github.com/rikkimax/zimp-impl/issues")

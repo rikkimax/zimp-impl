@@ -4,6 +4,7 @@ Made by Richard Andrew Cattermole
 
 from zimp.engine.gamestate import GameState
 from zimp.engine import defs
+from zimp.ui.ascii_art import *
 import sys
 import doctest
 
@@ -92,6 +93,7 @@ class CliGame(GameState):
         # tile state output
         #
 
+        print(fancy_text('Health:\n\t' + str(self.health), Colors.Red))
         print("You are currently at " + tile.name + " tile.")
 
         sys.stdout.write("There are doors at")
