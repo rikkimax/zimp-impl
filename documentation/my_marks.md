@@ -38,3 +38,6 @@ __From Claire__
 __From Loki__
 * tile
 * tilestate
+
+__Other__
+* Console color/bold. Modified by me however.
